@@ -10,7 +10,7 @@ const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
 // Express endpoint to receive messages and forward to bot
 
-// {"message":{"eventName":"test","startTime":"23:00","minutesUntilStart":1}}
+// {"eventName":"test","startTime":"23:00","minutesUntilStart":1}
 app.post("/api/send-message", async (req, res) => {
   try {
     const payload = req.body;
@@ -22,9 +22,9 @@ app.post("/api/send-message", async (req, res) => {
     const data = JSON.parse(payload);
 
     const message = `
-🎯 *${data.message.eventName}*
-⏰ Время начала: ${data.message.startTime}
-⏳ До начала: ${data.message.minutesUntilStart} мин.
+🎯 *${data.eventName}*
+⏰ Время начала: ${data.startTime}
+⏳ До начала: ${data.minutesUntilStart} мин.
     `;
 
     const chatId = process.env.MY_CHAT_ID;

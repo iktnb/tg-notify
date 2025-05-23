@@ -8,9 +8,6 @@ app.use(express.json());
 // Create a bot instance
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
-// Store the last message ID
-let lastMessageId = null;
-
 // Express endpoint to receive messages and forward to bot
 
 // {"eventName":"test","startTime":"23:00","minutesUntilStart":1}
@@ -34,18 +31,9 @@ app.post("/api/send-message", async (req, res) => {
 
     const chatId = process.env.MY_CHAT_ID;
     
-    // Delete the previous message if it exists
-    if (lastMessageId) {
-      try {
-        await bot.deleteMessage(chatId, lastMessageId);
-      } catch (error) {
-        console.log("Error deleting previous message:", error);
-      }
-    }
-
     // Send new message and store its ID
     const sentMessage = await bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
-    lastMessageId = sentMessage.message_id;
+
     
     res.json({ success: true });
   } catch (error) {

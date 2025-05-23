@@ -19,7 +19,9 @@ app.post("/api/send-message", async (req, res) => {
       return res.status(400).json({ error: "payload is required" });
     }
 
+    console.log(payload);
     const data = JSON.parse(payload);
+    console.log(data);
 
     const message = `
 🎯 *${data.eventName}*

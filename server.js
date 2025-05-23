@@ -20,7 +20,7 @@ app.post('/api/send-message', async (req, res) => {
     console.log(payload);
 
     const chatId = process.env.MY_CHAT_ID;
-    await bot.sendMessage(chatId, payload);
+    await bot.sendMessage(chatId, JSON.stringify(payload));
     res.json({ success: true });
   } catch (error) {
     console.error('Error sending message:', error);

@@ -9,22 +9,30 @@ app.use(express.json());
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
 // Express endpoint to receive messages and forward to bot
-app.post('/api/send-message', async (req, res) => {
+
+// {"message":{"eventName":"test","startTime":"23:00","minutesUntilStart":1}}
+app.post("/api/send-message", async (req, res) => {
   try {
     const payload = req.body;
-    
+
     if (!payload) {
-      return res.status(400).json({ error: 'payload is required' });
+      return res.status(400).json({ error: "payload is required" });
     }
 
-    console.log(payload);
+    const data = JSON.parse(payload);
+
+    const message = `
+🎯 *${data.eventName}*
+⏰ Время начала: ${data.startTime}
+⏳ До начала: ${data.minutesUntilStart} мин.
+    `;
 
     const chatId = process.env.MY_CHAT_ID;
-    await bot.sendMessage(chatId, JSON.stringify(payload));
+    await bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
     res.json({ success: true });
   } catch (error) {
-    console.error('Error sending message:', error);
-    res.status(500).json({ error: 'Failed to send message' });
+    console.error("Error sending message:", error);
+    res.status(500).json({ error: "Failed to send message" });
   }
 });
 
@@ -34,4 +42,4 @@ app.listen(PORT, () => {
   console.log(`Express server started on port ${PORT}`);
 });
 
-module.exports = { bot }; 
+module.exports = { bot };

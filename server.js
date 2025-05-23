@@ -17,6 +17,8 @@ app.post('/api/send-message', async (req, res) => {
       return res.status(400).json({ error: 'payload is required' });
     }
 
+    console.log(payload);
+
     const chatId = process.env.MY_CHAT_ID;
     await bot.sendMessage(chatId, payload);
     res.json({ success: true });

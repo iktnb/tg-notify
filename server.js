@@ -22,9 +22,9 @@ app.post("/api/send-message", async (req, res) => {
     const data = JSON.parse(payload);
 
     const message = `
-🎯 *${data.eventName}*
-⏰ Время начала: ${data.startTime}
-⏳ До начала: ${data.minutesUntilStart} мин.
+🎯 *${data.message.eventName}*
+⏰ Время начала: ${data.message.startTime}
+⏳ До начала: ${data.message.minutesUntilStart} мин.
     `;
 
     const chatId = process.env.MY_CHAT_ID;

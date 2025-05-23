@@ -20,7 +20,7 @@ app.post("/api/send-message", async (req, res) => {
     }
 
     console.log(payload);
-    const data = JSON.parse(payload);
+    const data = payload;
     console.log(data);
 
     const message = `

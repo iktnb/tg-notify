@@ -32,7 +32,7 @@ app.post("/api/send-message", async (req, res) => {
     const chatId = process.env.MY_CHAT_ID;
     
     // Send new message and store its ID
-    const sentMessage = await bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
+   await bot.sendMessage(chatId, message, { parse_mode: "Markdown" });
 
     
     res.json({ success: true });

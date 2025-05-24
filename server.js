@@ -5,6 +5,9 @@ const TelegramBot = require("node-telegram-bot-api");
 // Enable JSON parsing for request body
 app.use(express.json());
 
+// Serve static files from the public directory
+app.use('/api/public', express.static('public'));
+
 // Create a bot instance
 const bot = new TelegramBot(process.env.BOT_TOKEN, { polling: true });
 
